@@ -211,7 +211,7 @@
                         agents to follow the main storyline and complete one-hour-long real missions in the complex
                         AAA game Red Dead Redemption 2 (RDR2). <span style="font-weight: bold">Cradle</span> can also create a city with nearly a thousand
                         people in Cities:~Skylines, farm and harvest parsnips in Stardew Valley, and trade and bargain
-                        with a maximum weekly total profit of 87\% in Dealer's Life 2. <span style="font-weight: bold">Cradle</span> can not only operate
+                        with a maximum weekly total profit of 87% in Dealer's Life 2. <span style="font-weight: bold">Cradle</span> can not only operate
                         daily software, like Chrome, Outlook, and Feishu, but also edit images and videos using Meitu and CapCut.
                         With a unified interface to interact with any software, <span style="font-weight: bold">Cradle</span> greatly extends the reach of foundation agents by
                         enabling the easy conversion of any software, especially complex games, into benchmarks to evaluate agents' various
@@ -385,21 +385,29 @@
                 <br></br>
                 <div class="content has-text-justified">
                     <p>
-                        <span style="font-weight: bold">Cradle</span> can achieve a high success rate in simple tasks
-                        like following an NPC or going to specific locations on the ground (e.g., <em>Follow Dutch</em>
-                        and <em>Go to Barn</em>). Another following task, <em>Follow Javier</em>, and the searching task,
-                        <em>Search John</em>, are dangerous for the rugged and winding path up to the snow mountain with
-                        cliffs. In addition,
-                        GPT-4o struggles with real-time combat tasks and searching tasks due to
-                        its inability to accurately locate enemies or objects and precisely time decisions. Even
-                        equipped with additional detection tools, like Grounding DINO (<cite>Liu et al., 2023</cite>),
-                        the success rate drops significantly to 20% in the task of <em>Protect Dutch</em>, which
-                        requires nighttime combat.
-                        Additionally, indoor tasks like <em>Search for Supplies</em> and <em>Search Barn</em> are also
-                        challenging due to GPT-4o's poor spatial perception, which finds it difficult to locate target
-                        objects and ends up circling aimlessly.
-                        The open-ended task, <em>Buy Supply</em>, shows that even without in-game guidance,
-                        <span style="font-weight: bold">Cradle</span> still manages to complete the task with its superior reasoning ability.
+                        The figure shows that <span style="font-weight: bold">Cradle</span> can efficiently complete simple navigation tasks with
+                        a few steps like following an NPC or going to specific locations on the ground
+                        (e.g., <em>Follow Dutch</em>,  <em>Go to Town </em> and  <em>Go to Barn</em>). Another following task,
+                         <em>Follow Javier </em>, and the searching task,  <em>Search John</em>, are dangerous
+                        for the rugged and winding path up to the snow mountain with cliffs. Note that Cradle
+                        is able to retry the checkpoint automatically according to the game guidance if the task fails.
+                        Therefore, <span style="font-weight: bold">Cradle</span> takes more steps for retrying the task in these dangerous areas.
+                        In addition, Cradle spends about one-fourth of the total steps in the task of
+                        <em>Protect Dutch</em>, which is a long-horizontal task with nighttime combat. Many key skills
+                        are generated in this task for weapon management and shooting movement. The visibility is very
+                        poor due to the snow falling in the dark, which prevents GPT-4o from accurately recognizing and
+                        locating enemies or objects and precisely timing decisions, even equipped with Grounding DINO as
+                        an additional detection tool. More times of retry, combined with the need for frequent interactions
+                        during combat and the long horizon of the task, lead to this task requiring a large number of steps
+                        to complete. The success rate of the combat has significantly improved during the day with much fewer
+                        steps for completion, as shown by tasks like <em>Keep Wolves away</em>. Additionally, indoor tasks
+                        like <em>Search for Supplies</em> are also challenging due to GPT4-o's limited spatial perception,
+                        which finds it difficult to locate target objects and ends up circling aimlessly around the house.
+                        Moreover, the room contains numerous interactive items unrelated to the task, resulting in much more
+                        steps for the agent to complete the task. Overall, <span style="font-weight: bold">Cradle</span> requires approximately 8,000 steps to
+                        complete both missions, taking around 98 minutes of in-game time, compared to the average of 67 minutes
+                        for human players. It is the first time for LMM-powered AI agents to exhibit comparable performance
+                        in complex AAA games.
                     </p>
                 </div>
                 <br></br>
@@ -441,34 +449,43 @@
                     <p>
                     <ol>
                         <li>
-                            <strong>Cities: Skylines:</strong> While <span style="font-weight: bold">Cradle</span>
-                            manages to build roads in a closed loop to ensure smooth traffic flow, place multiple wind
-                            turbines to provide sufficient electricity supply, and cover more than 90% of available area
-                            with residential, commercial, and industrial zones, it fails to provide sufficient water
-                            supply reliably. The most common failure case is that water pipes are not connected with
-                            each other, resulting in localized water shortages in the city, and preventing new residents
-                            from moving in. With human assistance to correct the mistakes within three unit operations,
-                            the city built by <span style="font-weight: bold">Cradle</span> can eventually reach a
-                            population of more than one thousand.
+                            <strong>Cities: Skylines:</strong>
+                            <span style="font-weight: bold">Cradle</span> is able to complete most of the city design with the averaged maximal population of 450
+                            and the highest single population exceeding 860. <span style="font-weight: bold">Cradle</span> manages to build the roads in a closed
+                            loop to ensure smooth traffic flow, place multiple wind turbines to provide sufficient electricity
+                            supply and cover more than 90% of available area with residential, commercial and industrial zones,
+                            but fails to provide sufficient water supply for all the regions reliably. The most common failure
+                            arises from the missing of water pipes. <span style="font-weight: bold">Cradle</span> often fail to connect them with each other to cover all zones,
+                            resulting in localized water shortages in the city, and preventing new residents from moving in.
+                            The issue also arises from GPT-4o's limited visual understanding, making it difficult to accurately recognize
+                            which areas are already covered by the water pipes. We empirically observed that these mistakes usually could
+                            be fixed within three unit operations (building or removing a road/facility/a place of zones is counted as one unit operation).
+                            Then cities built by <span style="font-weight: bold">Cradle</span> can eventually reach a population of more than one thousand. Overall, without the manual fixes,
+                            <span style="font-weight: bold">Cradle</span> still beats human players even though it suffers from local water storage. 
+                            Human players typically pay insufficient attention to budget management and tend to allocate a 
+                            disproportionate amount of funds to the construction of wind turbines for electricity, resulting 
+                            in limited road construction and residential areas to attract residents.
                         </li>
                         <li>
-                            <strong>Stardew Valley:</strong> We surprisingly find that GPT-4o struggles with accurately
-                            recognizing and locating objects near the player in the 2D game, leading to difficulties for
-                            the agent to interact with objects or people, as it requires the player to stand precisely
-                            in front of them in the grid (e.g., when entering doors, using a pickaxe to break stones).
-                            This explains the inefficiency in the farming task, although the agent manages to clear up
-                            most obstacles in front of the house within 100 steps, and poor performance in the shopping
-                            task. On the other hand, relying on episodic summarization and task inference, <span
-                                style="font-weight: bold">Cradle</span> manages to obtain the parsnip by watering the
-                            seed for four days and harvesting.
+                            <strong>Stardew Valley:</strong>
+                            As shown in the table, we surprisingly find that GPT-4o  struggles with accurately recognizing and locating objects
+                            near the player in this pixel-art game. This leads to difficulties for the agent to interact with objects or people, 
+                            as it requires the player to stand precisely in front of them in the grid (e.g., when entering doors, using a pickaxe to break stones).
+                            It explains the inefficiency in the farming task though the agent manages to clear up most of the obstacles in front 
+                            of the house within 100 steps and poor performance in the shopping task. On the other hand, relying on episodic summarization 
+                            and task inference, <span style="font-weight: bold">Cradle</span> manages to obtain the parsnip by watering the seed for four days and harvesting.
+                            Given GPT-4's limited visual capabilities in this game, there is still room for improvement in narrowing the gap between 
+                            <span style="font-weight: bold">Cradle</span> and human players.
                         </li>
                         <li>
-                            <strong>Dealer's Life 2:</strong> <span style="font-weight: bold">Cradle</span> demonstrates
-                            robust performance and efficient profit-making on the weekly shop management task,
-                            successfully finalizing 93.6% of potential transactions, with an average of two negotiation
-                            rounds per customer, and generally aiming for a profit rate of over 50% at the initial
-                            offer. It consistently generates profit across all runs, maintaining a total profit rate of
-                            +39.6%, peaking at +87.4% in a single run.
+                            <strong>Dealer's Life 2:</strong>
+                            <span style="font-weight: bold">Cradle</span> demonstrates robust performance and efficient profit-making on the <em>Weekly Shop Management</em> task, successfully 
+                            finalizing 93.6% of potential transactions, with an average of 2 negotiation rounds per customer, and generally aiming for a 
+                            profit rate of over 50% at the initial offer. It consistently generates profit across all runs, maintaining a total profit 
+                            rate of +39.6%, peaking at +87.4% in a single run. In this game, <span style="font-weight: bold">Cradle</span> significantly outperforms human players.
+                            The achievements are mainly attributed to its cautious strategy, by bargaining within a smaller range of price variation
+                            but haggling more frequently, resulting in a significantly higher turnover rate. In contrast, human players usually fail 
+                            the deal due to their aggressive strategy by proposing an unreasonable price and sometimes confusing buying and selling. 
                         </li>
                     </ol>
                     </p>
